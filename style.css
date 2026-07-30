@@ -1,0 +1,445 @@
+/* =========================================================
+   THAÍS PEREIRA CAMPOS — Design de Sobrancelhas
+   Sistema de design: Preto & Dourado, arco como assinatura
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+:root{
+  --black:        #0c0a09;
+  --black-2:      #17130f;
+  --black-3:      #1f1a14;
+  --gold:         #c9a227;
+  --gold-light:   #e8cd82;
+  --gold-deep:    #8a6c1f;
+  --ivory:        #f6f1e6;
+  --ivory-dim:    #cfc7b4;
+  --text-dark:    #211c15;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Jost', sans-serif;
+
+  --container: 1180px;
+  --radius: 2px;
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--black);
+  color:var(--ivory);
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:500;
+  margin:0 0 .5em;
+  letter-spacing:.01em;
+  color:var(--ivory);
+}
+p{ margin:0 0 1em; color:var(--ivory-dim); }
+.container{
+  width:92%;
+  max-width:var(--container);
+  margin:0 auto;
+}
+section{ padding:clamp(56px,8vw,120px) 0; }
+.section-light{ background:var(--ivory); color:var(--text-dark); }
+.section-light p{ color:#5c5340; }
+.section-light h1,.section-light h2,.section-light h3,.section-light h4{ color:var(--text-dark); }
+
+/* ---------- Eyebrow label (texto pequeno acima dos títulos) ---------- */
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-body);
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  margin-bottom:14px;
+}
+.kicker::before{
+  content:"";
+  width:28px; height:1px;
+  background:var(--gold);
+  display:inline-block;
+}
+.section-light .kicker{ color:var(--gold-deep); }
+
+/* ---------- Assinatura: Arco dourado (o traço do design de sobrancelha) ---------- */
+.arc{
+  display:block;
+  margin:18px 0 28px;
+  overflow:visible;
+}
+.arc path{
+  fill:none;
+  stroke:var(--gold);
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-dasharray:260;
+  stroke-dashoffset:260;
+  transition:stroke-dashoffset 1.4s var(--ease);
+}
+.arc.in-view path{ stroke-dashoffset:0; }
+.arc.center{ margin-left:auto; margin-right:auto; }
+
+/* ---------- Header / Navegação ---------- */
+.site-header{
+  position:fixed; top:0; left:0; right:0;
+  z-index:100;
+  background:rgba(12,10,9,.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(201,162,39,.18);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  height:76px;
+}
+.brand{
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  letter-spacing:.04em;
+  color:var(--ivory);
+}
+.brand strong{ color:var(--gold-light); font-weight:600; }
+.nav-links{
+  display:flex; align-items:center; gap:34px;
+  list-style:none; margin:0; padding:0;
+}
+.nav-links a{
+  font-size:.82rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ivory-dim);
+  position:relative;
+  padding-bottom:6px;
+  transition:color .3s;
+}
+.nav-links a::after{
+  content:"";
+  position:absolute; left:0; bottom:0;
+  width:0; height:1px; background:var(--gold);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover, .nav-links a.active{ color:var(--gold-light); }
+.nav-links a:hover::after, .nav-links a.active::after{ width:100%; }
+
+.nav-cta{
+  border:1px solid var(--gold);
+  color:var(--gold-light) !important;
+  padding:10px 20px;
+  font-size:.76rem !important;
+  letter-spacing:.16em !important;
+}
+.nav-cta::after{ display:none; }
+.nav-cta:hover{ background:var(--gold); color:var(--black) !important; }
+
+.nav-toggle{
+  display:none;
+  flex-direction:column; gap:5px;
+  background:none; border:none; cursor:pointer;
+  padding:8px;
+}
+.nav-toggle span{
+  width:24px; height:1px; background:var(--gold-light);
+  transition:all .3s;
+}
+
+@media(max-width:860px){
+  .nav-toggle{ display:flex; }
+  .nav-links{
+    position:fixed; top:76px; left:0; right:0;
+    flex-direction:column; align-items:flex-start;
+    background:var(--black-2);
+    padding:30px 6%;
+    gap:22px;
+    transform:translateY(-8px);
+    opacity:0;
+    pointer-events:none;
+    transition:all .3s var(--ease);
+    border-bottom:1px solid rgba(201,162,39,.18);
+  }
+  .nav-links.open{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+}
+
+/* ---------- Botões ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-body);
+  font-size:.8rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:16px 32px;
+  border:1px solid var(--gold);
+  cursor:pointer;
+  transition:all .35s var(--ease);
+  background:transparent;
+}
+.btn-primary{ background:var(--gold); color:var(--black); }
+.btn-primary:hover{ background:var(--gold-light); border-color:var(--gold-light); transform:translateY(-2px); }
+.btn-outline{ color:var(--gold-light); }
+.btn-outline:hover{ background:var(--gold); color:var(--black); transform:translateY(-2px); }
+.section-light .btn-outline{ color:var(--gold-deep); border-color:var(--gold-deep); }
+.section-light .btn-outline:hover{ background:var(--gold-deep); color:var(--ivory); }
+
+.btn-whats{
+  border-color:var(--gold-light);
+}
+.btn-whats svg{ width:16px; height:16px; fill:currentColor; }
+
+/* ---------- Hero ---------- */
+.hero{
+  min-height:100svh;
+  display:flex; align-items:center;
+  position:relative;
+  padding-top:76px;
+  background:
+    radial-gradient(ellipse at 78% 20%, rgba(201,162,39,.14), transparent 55%),
+    linear-gradient(180deg,#0c0a09 0%, #120e0b 100%);
+  overflow:hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background-image:repeating-linear-gradient(115deg, rgba(201,162,39,.035) 0px, rgba(201,162,39,.035) 1px, transparent 1px, transparent 90px);
+  pointer-events:none;
+}
+.hero-inner{ position:relative; z-index:2; max-width:760px; }
+.hero h1{
+  font-size:clamp(2.6rem, 6vw, 4.6rem);
+  line-height:1.05;
+  font-style:italic;
+}
+.hero h1 em{ color:var(--gold-light); font-style:italic; }
+.hero .lead{
+  font-size:1.05rem;
+  max-width:520px;
+  color:var(--ivory-dim);
+}
+.hero-actions{
+  display:flex; flex-wrap:wrap; gap:16px; margin-top:32px;
+}
+.hero-badge{
+  margin-top:56px;
+  display:inline-flex; align-items:center; gap:14px;
+  padding:14px 22px;
+  border:1px solid rgba(201,162,39,.35);
+  background:rgba(201,162,39,.06);
+}
+.hero-badge .num{ font-family:var(--font-display); font-size:1.3rem; color:var(--gold-light); }
+.hero-badge .lbl{ font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ivory-dim); }
+
+/* ---------- Grades de diferenciais / serviços ---------- */
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:rgba(201,162,39,.18);
+}
+@media(max-width:820px){ .grid-3{ grid-template-columns:1fr; } }
+.feature{
+  background:var(--black);
+  padding:44px 34px;
+  transition:background .3s;
+}
+.feature:hover{ background:var(--black-3); }
+.feature .icon{ width:38px; height:38px; margin-bottom:22px; color:var(--gold); }
+.feature h3{ font-size:1.4rem; margin-bottom:10px; }
+.feature p{ font-size:.92rem; margin-bottom:0; }
+
+/* ---------- Sobre teaser / bio layout ---------- */
+.split{
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:clamp(30px,6vw,90px);
+  align-items:center;
+}
+@media(max-width:860px){ .split{ grid-template-columns:1fr; } }
+.split.reverse .img-frame{ order:2; }
+.img-frame{
+  position:relative;
+  border:1px solid var(--gold);
+  padding:14px;
+}
+.img-frame img{ width:100%; height:auto; filter:grayscale(.15) contrast(1.03); }
+.img-frame::before{
+  content:"";
+  position:absolute; top:-14px; left:-14px; right:14px; bottom:14px;
+  border:1px solid var(--gold-deep);
+  z-index:-1;
+}
+
+/* ---------- Depoimentos ---------- */
+.testi-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:26px;
+}
+@media(max-width:900px){ .testi-grid{ grid-template-columns:1fr; } }
+.testi{
+  background:var(--black-2);
+  border:1px solid rgba(201,162,39,.2);
+  padding:34px 30px;
+}
+.testi .stars{ color:var(--gold); letter-spacing:3px; font-size:.9rem; margin-bottom:16px; }
+.testi p{ font-style:italic; font-family:var(--font-display); font-size:1.15rem; color:var(--ivory); }
+.testi .who{ font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-light); margin-top:16px; }
+
+/* ---------- Serviços (página) ---------- */
+.service-row{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:clamp(24px,5vw,70px);
+  align-items:center;
+  padding:56px 0;
+  border-bottom:1px solid rgba(201,162,39,.16);
+}
+.service-row:last-child{ border-bottom:none; }
+@media(max-width:820px){ .service-row{ grid-template-columns:1fr; } }
+.service-row .tag{
+  font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold);
+}
+.service-row h3{ font-size:2rem; margin:10px 0 16px; }
+.price{
+  display:inline-block;
+  margin-top:8px;
+  font-family:var(--font-display);
+  font-size:1.3rem;
+  color:var(--gold-light);
+}
+.service-list{ list-style:none; padding:0; margin:18px 0 0; }
+.service-list li{
+  padding:8px 0 8px 22px;
+  position:relative;
+  font-size:.92rem;
+  color:var(--ivory-dim);
+  border-top:1px solid rgba(201,162,39,.1);
+}
+.service-list li:first-child{ border-top:none; }
+.service-list li::before{
+  content:"—"; position:absolute; left:0; color:var(--gold);
+}
+
+/* ---------- Formulário de agendamento ---------- */
+.form-wrap{
+  max-width:680px;
+  margin:0 auto;
+  background:var(--black-2);
+  border:1px solid rgba(201,162,39,.25);
+  padding:clamp(28px,5vw,54px);
+}
+.field{ margin-bottom:22px; }
+.field label{
+  display:block;
+  font-size:.75rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  margin-bottom:8px;
+}
+.field input, .field select, .field textarea{
+  width:100%;
+  background:var(--black);
+  border:1px solid rgba(201,162,39,.35);
+  color:var(--ivory);
+  font-family:var(--font-body);
+  font-size:.95rem;
+  padding:13px 14px;
+  border-radius:var(--radius);
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  outline:2px solid var(--gold);
+  outline-offset:1px;
+  border-color:var(--gold);
+}
+.field textarea{ resize:vertical; min-height:100px; }
+.row-2{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:560px){ .row-2{ grid-template-columns:1fr; } }
+.form-note{
+  font-size:.8rem; color:var(--ivory-dim); margin-top:18px;
+}
+.form-msg{
+  margin-top:20px; padding:14px 16px;
+  border:1px solid var(--gold);
+  font-size:.85rem;
+  display:none;
+}
+.form-msg.show{ display:block; }
+
+/* ---------- Contato direto (faixa) ---------- */
+.contact-strip{
+  background:linear-gradient(120deg, var(--black-2), var(--black));
+  border-top:1px solid rgba(201,162,39,.2);
+  border-bottom:1px solid rgba(201,162,39,.2);
+  text-align:center;
+  padding:60px 0;
+}
+.contact-strip .phone-big{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  color:var(--gold-light);
+  letter-spacing:.02em;
+}
+
+/* ---------- Footer ---------- */
+.site-footer{
+  background:var(--black-2);
+  padding:56px 0 26px;
+  border-top:1px solid rgba(201,162,39,.18);
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr 1fr;
+  gap:40px;
+  margin-bottom:40px;
+}
+@media(max-width:700px){ .footer-grid{ grid-template-columns:1fr; } }
+.footer-grid h4{
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:16px; font-family:var(--font-body);
+}
+.footer-grid ul{ list-style:none; padding:0; margin:0; }
+.footer-grid li{ margin-bottom:10px; }
+.footer-grid a{ color:var(--ivory-dim); font-size:.9rem; }
+.footer-grid a:hover{ color:var(--gold-light); }
+.footer-bottom{
+  border-top:1px solid rgba(201,162,39,.15);
+  padding-top:22px;
+  font-size:.75rem;
+  color:var(--ivory-dim);
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+}
+
+/* ---------- Page hero (páginas internas) ---------- */
+.page-hero{
+  padding:150px 0 60px;
+  background:radial-gradient(ellipse at 20% 0%, rgba(201,162,39,.12), transparent 60%);
+  text-align:left;
+}
+.page-hero h1{ font-size:clamp(2.2rem,5vw,3.4rem); font-style:italic; }
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .arc path{ transition:none; stroke-dashoffset:0; }
+}
+
+/* focus visibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+  outline:2px solid var(--gold-light);
+  outline-offset:3px;
+}
