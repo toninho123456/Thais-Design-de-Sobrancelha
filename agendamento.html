@@ -134,7 +134,7 @@
   </div>
 </footer>
 
-<script>
+  <script>
   function enviarWhatsapp(e) {
     if (e) e.preventDefault();
 
@@ -152,7 +152,6 @@
     var data = elData ? elData.value : "";
     var horario = elHora ? elHora.value : "";
 
-    // Formata a data (de AAAA-MM-DD para DD/MM/AAAA) se estiver preenchida
     if (data) {
       var partesData = data.split("-");
       if (partesData.length === 3) {
