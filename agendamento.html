@@ -37,7 +37,7 @@
 
   <section style="padding-top:0;">
     <div class="container">
-      <form id="booking-form" class="form-wrap" novalidate>
+      <form id="booking-form" class="form-wrap" novalidate onsubmite="return false;">
 
         <div class="field">
           <label for="nome">Nome completo *</label>
@@ -151,7 +151,9 @@
 
     const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagem)}`;
 
-    window.open(url, '_blank');
+    window.location.href = url;
+  });
+  }
   });
 </script>
 </body>
