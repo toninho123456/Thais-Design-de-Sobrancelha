@@ -37,7 +37,7 @@
 
   <section style="padding-top:0;">
     <div class="container">
-      <form id="booking-form" class="form-wrap" novalidate onsubmit="enviarWhatsapp(event)">
+      <form id="booking-form" class="form-wrap" novalidate onsubmit="enviarWhatsapp(event); return false;")>
 
         <div class="field">
           <label for="nome">Nome completo *</label>
@@ -135,13 +135,18 @@
 </footer>
 
 <script>
-  document.getElementById('booking-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+  function enviarWhatsapp(e) {
+    if (e) e.preventDefault(); // Impede o envio padrão/404
 
     var numeroWhatsapp = "5583988288770";
-    var nome = document.getElementById('nome').value;
-    var telefone = document.getElementById('telefone').value;
-    var servico = document.getElementById('servico').value;
+
+    var elNome = document.getElementById('nome');
+    var elTel = document.getElementById('telefone');
+    var elServ = document.getElementById('servico');
+
+    var nome = elNome ? elNome.value : "";
+    var telefone = elTel ? elTel.value : "";
+    var servico = elServ ? elServ.value : "";
 
     var mensagem = "Olá! Gostaria de agendar um horário.\n\n" +
                    "*Nome:* " + nome + "\n" +
@@ -150,8 +155,9 @@
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(mensagem);
 
+    // Redireciona direto para o WhatsApp
     window.location.href = url;
-  });
+  }
 </script>
 </body>
 </html>
