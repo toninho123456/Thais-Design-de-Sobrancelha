@@ -134,6 +134,25 @@
   </div>
 </footer>
 
-<script src="js/script.js"></script>
+<script
+  document.getElementById('booking-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const numeroWhatsapp = "5583988288770";
+
+    const nome = document.getElementById('nome').value;
+    const telefone = document.getElementById('telefone').value;
+    const servico = document.getElementById('servico').value;
+
+    const mensagem = `Olá! Gostaria de agendar um horário.\n\n` +
+                     `*Nome:* ${nome}\n` +
+                     `*Telefone/Zap:* ${telefone}\n` +
+                     `*Serviço:* ${servico}`;
+
+    const url = `https://wa.me/${numeroWhatsapp}?text=${encodeURIComponent(mensagem)}`;
+
+    window.open(url, '_blank');
+  });
+</script>
 </body>
 </html>
