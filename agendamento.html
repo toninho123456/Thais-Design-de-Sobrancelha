@@ -136,26 +136,39 @@
 
 <script>
   function enviarWhatsapp(e) {
-    if (e) e.preventDefault(); // Impede o envio padrão/404
+    if (e) e.preventDefault();
 
     var numeroWhatsapp = "5583988288770";
 
     var elNome = document.getElementById('nome');
     var elTel = document.getElementById('telefone');
     var elServ = document.getElementById('servico');
+    var elData = document.getElementById('data');
+    var elHora = document.getElementById('horario');
 
     var nome = elNome ? elNome.value : "";
     var telefone = elTel ? elTel.value : "";
     var servico = elServ ? elServ.value : "";
+    var data = elData ? elData.value : "";
+    var horario = elHora ? elHora.value : "";
+
+    // Formata a data (de AAAA-MM-DD para DD/MM/AAAA) se estiver preenchida
+    if (data) {
+      var partesData = data.split("-");
+      if (partesData.length === 3) {
+        data = partesData[2] + "/" + partesData[1] + "/" + partesData[0];
+      }
+    }
 
     var mensagem = "Olá! Gostaria de agendar um horário.\n\n" +
                    "*Nome:* " + nome + "\n" +
                    "*Telefone/Zap:* " + telefone + "\n" +
-                   "*Serviço:* " + servico;
+                   "*Serviço:* " + servico + "\n" +
+                   "*Data:* " + data + "\n" +
+                   "*Horário:* " + horario;
 
     var url = "https://wa.me/" + numeroWhatsapp + "?text=" + encodeURIComponent(mensagem);
 
-    // Redireciona direto para o WhatsApp
     window.location.href = url;
   }
 </script>
